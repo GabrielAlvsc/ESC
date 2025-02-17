@@ -1,0 +1,139 @@
+$date
+	Sun Apr 23 11:24:42 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_DMux4Way $end
+$var wire 1 ! d $end
+$var wire 1 " c $end
+$var wire 1 # b $end
+$var wire 1 $ a $end
+$var reg 1 % in $end
+$var reg 2 & sel [1:0] $end
+$scope module mymodule $end
+$var wire 1 % in $end
+$var wire 2 ' sel [1:0] $end
+$var wire 1 ( w1 $end
+$var wire 1 ) w0 $end
+$var wire 1 ! d $end
+$var wire 1 " c $end
+$var wire 1 # b $end
+$var wire 1 $ a $end
+$scope module dmux0 $end
+$var wire 1 ) a $end
+$var wire 1 ( b $end
+$var wire 1 % in $end
+$var wire 1 * sel $end
+$var wire 1 + w0 $end
+$upscope $end
+$scope module dmux1 $end
+$var wire 1 $ a $end
+$var wire 1 # b $end
+$var wire 1 ) in $end
+$var wire 1 , sel $end
+$var wire 1 - w0 $end
+$upscope $end
+$scope module dmux2 $end
+$var wire 1 " a $end
+$var wire 1 ! b $end
+$var wire 1 ( in $end
+$var wire 1 . sel $end
+$var wire 1 / w0 $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+1/
+0.
+1-
+0,
+1+
+0*
+0)
+0(
+b0 '
+b0 &
+0%
+0$
+0#
+0"
+0!
+$end
+#1
+0-
+0/
+1,
+1.
+b1 &
+b1 '
+#2
+0+
+1-
+1/
+1*
+0,
+0.
+b10 &
+b10 '
+#3
+0-
+0/
+1,
+1.
+b11 &
+b11 '
+#4
+1$
+1)
+1+
+1-
+1/
+0*
+0,
+0.
+0(
+b0 &
+b0 '
+1%
+#5
+0$
+1#
+0-
+0/
+1,
+1.
+b1 &
+b1 '
+#6
+0)
+0$
+1"
+1(
+0+
+0#
+1-
+1/
+1*
+0,
+0.
+b10 &
+b10 '
+#7
+0"
+0-
+1!
+0/
+1,
+1.
+b11 &
+b11 '
+#8

@@ -1,0 +1,22 @@
+function mult 2 // 2 local vars.
+push constant 0 // sum=0
+pop local 0
+push constant 1 // n=1
+pop local 1
+label LOOP
+push local 1 // if !(n>y)
+push argument 1 // gotoEND
+gt
+if-goto ENDM
+push local 0 // sum+=x
+push argument 0
+add
+pop local 0
+push local 1 // n++
+push constant 1
+add
+pop local 1
+goto LOOP
+label ENDM
+push local 0 // return sum
+return

@@ -1,0 +1,257 @@
+Seguem alguns padrões de programa úteis para programar em assembly
+
+-----------------------------------------------------------------------------------
+//// if M[i] = 0 / <= 0 / < 0 / >= 0 / > 0
+
+...
+// # IF BLOCK ######
+
+    @i
+    D=M
+    @IF
+    D;JEQ / D;JLE / D;JLT / D;JGE / D;JGT
+
+    [else_body]
+
+    @ENDIF
+    0;JMP
+
+(IF)
+
+    [if_body]
+
+(ENDIF)
+...
+
+-----------------------------------------------------------------------------------
+//// if M[i] = 0 / <= 0 / < 0 / >= 0 / > 0 *OR* M[j] = 0 / <= 0 / < 0 / >= 0 / > 0
+
+...
+// # IF BLOCK ######
+
+    @i
+    D=M
+    @IF
+    D;JEQ / D;JLE / D;JLT / D;JGE / D;JGT
+
+    @j
+    D=M
+    @IF
+    D;JEQ / D;JLE / D;JLT / D;JGE / D;JGT
+
+    [else_body]
+
+    @ENDIF
+    0;JMP
+
+(IF)
+
+    [if_body]
+
+(ENDIF)
+...
+
+-----------------------------------------------------------------------------------
+//// if M[i] = 0 / <= 0 / < 0 / >= 0 / > 0 *AND* M[j] = 0 / <= 0 / < 0 / >= 0 / > 0
+
+...
+// # IF BLOCK ######
+
+    @i
+    D=M
+    @AND
+    D;JEQ / D;JLE / D;JLT / D;JGE / D;JGT
+
+    @ELSE
+    0;JMP
+
+(AND)
+    @j
+    D=M
+    @IF
+    D;JEQ / D;JLE / D;JLT / D;JGE / D;JGT
+
+(ELSE)
+
+    [else_body]
+
+    @ENDIF
+    0;JMP
+
+(IF)
+
+    [if_body]
+
+(ENDIF)
+...
+
+-----------------------------------------------------------------------------------
+//// if M[i] = M[j] / <= M[j] / < M[j] / >= M[j] / > M[j]
+//// Converter para M[i] - M[j] = 0 / <= 0 / < 0 / >= 0 / > 0
+
+...
+// # IF BLOCK ######
+
+    @i
+    D=M
+    @j
+    D=D-M
+    @IF
+    D;JEQ / D;JLE / D;JLT / D;JGE / D;JGT
+
+    [else_body]
+
+    @ENDIF
+    0;JMP
+
+(IF)
+
+    [if_body]
+
+(ENDIF)
+...
+
+-----------------------------------------------------------------------------------
+//// while M[i] <= 0 / < 0 / >= 0 / > 0; com atualização i++ ou i--
+
+...
+// # WHILE BLOCK ######
+
+    [
+        inicializa M[i] com valor inicial coerente com laço;
+        exemplo com 42:
+            @42 // valor positivo, de 0 a 2^15
+            D=A
+            @i
+            M[i]=D
+        exemplo com -42:
+            @42 // valor positivo, de 0 a 2^15
+            D=A
+            @i
+            M[i]=-D
+    ]
+
+(WHILE)
+    @i
+    D=M
+    @WHILE_BODY
+    D;JLE / D;JLT / D;JGE / D;JGT
+
+    @ENDWHILE
+    0;JMP
+
+(WHILE_BODY)
+
+    [while_body]
+
+    @i
+    M=M+1 / M=M-1
+    @WHILE
+    0;JMP
+
+(ENDWHILE)
+...
+
+-----------------------------------------------------------------------------------
+//// while M[i] <= M[j] / < M[j] / >= M[j] / > M[j]; com atualização i++ ou i--
+
+...
+// # WHILE BLOCK ######
+
+    [ inicializa M[i] com valor inicial coerente com laço ]
+    [ inicializa M[j] (constante) com valor inicial coerente com laço ]
+
+(WHILE)
+    @i
+    D=M
+    @j
+    D=D-M
+    @WHILE_BODY
+    D;JLE / D;JLT / D;JGE / D;JGT
+
+    @ENDWHILE
+    0;JMP
+
+(WHILE_BODY)
+
+    [while_body]
+
+    @i
+    M=M+1 / M=M-1
+    @WHILE
+    0;JMP
+
+(ENDWHILE)
+...
+
+-----------------------------------------------------------------------------------
+//// while M[i] <= 0 / < 0 / >= 0 / > 0; com atualização i += M[k] ou i -= M[k]
+
+...
+// # WHILE BLOCK ######
+
+    [ inicializa M[i] com valor inicial coerente com laço ]
+    [ inicializa M[k] (constante) com valor inicial coerente com atualização ]
+
+(WHILE)
+    @i
+    D=M
+    @WHILE_BODY
+    D;JLE / D;JLT / D;JGE / D;JGT
+
+    @ENDWHILE
+    0;JMP
+
+(WHILE_BODY)
+
+    [while_body]
+
+    @i
+    D=M
+    @k
+    D=D+M / D=D-M
+    @i
+    M=D
+    @WHILE
+    0;JMP
+
+(ENDWHILE)
+...
+
+-----------------------------------------------------------------------------------
+//// todo final de programa
+
+...
+(END)
+    @END
+    0;JMP
+
+-----------------------------------------------------------------------------------
+//// função FUN() com uso de variáveis globais (mais simples em assembly)
+
+// # MAIN BLOCK ######
+
+    [ instruções ]
+    
+    @RETFUNx
+    D=A
+    @return
+    M=D
+    @FUN
+    0;JMP // chamada incondicional de função
+    (RETFUNx)
+
+    [ instruções ]
+
+(END)
+    @END
+    0;JMP
+
+// # FUN BLOCK ######
+(FUN)
+
+    [fun_body]
+
+    @return
+    A=M
+    0;JMP

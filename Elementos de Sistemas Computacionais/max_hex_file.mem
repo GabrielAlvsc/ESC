@@ -1,0 +1,19 @@
+// MAX test program
+// Expected result: 
+//     RAM[2] = max(RAM[0], RAM[1])
+0000 // @0
+fc10 // D=M
+0001 // @1
+f4d0 // D=D-M
+000a // @10
+e301 // D;JGT
+0001 // @1
+fc10 // D=M
+000c // @12
+ea87 // 0;JMP
+0000 // @0
+fc10 // D=M
+0002 // @2
+e308 // M=D
+000e // @14
+ea87 // 0;JMP
